@@ -37,6 +37,16 @@ void fillRectangle(u_char colMin, u_char rowMin, u_char width, u_char height,
   }
 }
 
+void fillLowerTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR)
+{
+  for (int r = 0; r <= size; r++) {
+    for (int c = 0; c <= size - r; c++) {
+      drawPixel(offset_c + c, offset_r + r, colorBGR);
+      drawPixel(offset_c - c, offset_r + r, colorBGR);
+    }
+  }
+}
+
 /** Clear screen (fill with color)
  *  
  *  \param colorBGR The color to fill screen
