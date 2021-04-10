@@ -25,6 +25,12 @@ void fillRectangle(u_char colMin, u_char rowMin, u_char width, u_char height, u_
 
 void fillLowerTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR);
 
+void fillUpperTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR);
+
+void fillEqTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR);
+
+void fillHouse(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR);
+
 /** Clear screen (fill with color)
  *  
  *  \param colorBGR The color to fill screen

@@ -19,6 +19,9 @@ main()
   drawString5x7(20,20, "hello", COLOR_GREEN, COLOR_RED);
 
   //fillRectangle(30,30, 60, 60, COLOR_ORANGE);
-  fillLowerTriangle(30, 30, 25, COLOR_ORANGE);
-  
+  //fillLowerTriangle(30, 30, 25, COLOR_ORANGE);
+  //fillUpperTriangle(30, 55, 25, COLOR_ORANGE);
+  //fillTwoTriangles(30, 30, 25, COLOR_ORANGE);
+  fillHouse(40, 40, 35, COLOR_ORANGE);
 }
+

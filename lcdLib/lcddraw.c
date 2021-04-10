@@ -47,6 +47,37 @@ void fillLowerTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colo
   }
 }
 
+void fillUpperTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR)
+{
+  for (int r = 0; r <= size; r++) {
+    for (int c = 0; c <= size - r; c++) {
+      drawPixel(offset_c + c, offset_r - r, colorBGR);
+      drawPixel(offset_c - c, offset_r - r, colorBGR);
+    }
+  }
+}
+
+void fillTwoTriangles(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR)
+{
+  for (int c = 0; c <= size; c++) {
+    for (int r = 0; r <= c; r++) {
+      drawPixel(offset_c + c, offset_r + r, colorBGR);
+      drawPixel(offset_c - c, offset_r + r, colorBGR);
+    }
+  }
+}
+
+void fillHouse(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR)
+{
+  for (int r = 0; r <= size; r++) {
+    for (int c = 0; c <= size - r; c++) {
+      drawPixel(offset_c + c, offset_r - r, colorBGR);
+      drawPixel(offset_c - c, offset_r - r, colorBGR);
+    }
+  }
+  fillRectangle(offset_c - (offset_c/1.225), offset_r, size + size, size, colorBGR);
+}
+
 /** Clear screen (fill with color)
  *  
  *  \param colorBGR The color to fill screen
