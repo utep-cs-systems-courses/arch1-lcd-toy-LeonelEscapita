@@ -27,7 +27,7 @@ void fillLowerTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colo
 
 void fillUpperTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR);
 
-void fillEqTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR);
+void fillCross(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR);
 
 void fillHouse(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR);
 

@@ -57,14 +57,10 @@ void fillUpperTriangle(u_char offset_c, u_char offset_r, u_char size, u_int colo
   }
 }
 
-void fillTwoTriangles(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR)
+void fillCross(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR)
 {
-  for (int c = 0; c <= size; c++) {
-    for (int r = 0; r <= c; r++) {
-      drawPixel(offset_c + c, offset_r + r, colorBGR);
-      drawPixel(offset_c - c, offset_r + r, colorBGR);
-    }
-  }
+  fillRectangle(offset_c, offset_r, size, size + size, colorBGR);
+  fillRectangle(offset_c - (size/2), offset_r + (size/2), size + size, size, colorBGR);
 }
 
 void fillHouse(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR)
@@ -75,7 +71,7 @@ void fillHouse(u_char offset_c, u_char offset_r, u_char size, u_int colorBGR)
       drawPixel(offset_c - c, offset_r - r, colorBGR);
     }
   }
-  fillRectangle(offset_c - (offset_c/1.225), offset_r, size + size, size, colorBGR);
+  fillRectangle(offset_c - size, offset_r, size + size, size, colorBGR);
 }
 
 /** Clear screen (fill with color)
