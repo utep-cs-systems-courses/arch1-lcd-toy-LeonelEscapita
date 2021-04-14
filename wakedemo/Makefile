@@ -9,8 +9,17 @@ AS              = msp430-elf-gcc -mmcu=${CPU} -c
 
 all:wakedemo.elf
 
+buzzer.o: buzzer.c buzzer.h
+led.o: led.c led.h
+toggle_green.o:toggle_green.s stateMachines.h
+p2_interrupt_handler.o: switches.h
+stateMachines.o: led.h stateMachines.h
+switches.o: led.h switches.h
+lcddraw.o: lcddraw.c lcddraw.h lcdutils.h
+lcdutils.o: lcdutils.c lcdutils.h
+
 #additional rules for files
-wakedemo.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o
+wakedemo.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o font-11x16.o font-5x7.o lcdutils.o lcddraw.o buzzer.o led.o toggle_green.o p2_interrupt_handler.o stateMachines.o switches.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd 
 
 load: wakedemo.elf
