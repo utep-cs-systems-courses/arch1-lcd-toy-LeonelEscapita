@@ -72,7 +72,10 @@ void main()
    while (1) {			/* forever */
     if (redrawScreen) {
       redrawScreen = 0;
+      drawString11x16(helloCol,helloCol, "hello", COLOR_BLUE, COLOR_BLUE);
       drawString11x16(nextHelloCol,nextHelloCol, "hello", fontFgColor, COLOR_BLUE);
+      helloCol = nextHelloCol;
+      //fillCross(nextHelloCol, nextHelloCol, 30, fontFgColor);
     }
     P1OUT &= ~LED_RED; //red off
     or_sr(0x10);		/**< CPU OFF */
