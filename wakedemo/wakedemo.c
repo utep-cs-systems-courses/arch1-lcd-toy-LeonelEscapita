@@ -12,18 +12,30 @@
 
 short redrawScreen = 1;
 u_int fontFgColor = COLOR_GREEN;
+u_char helloCol = 10;
+u_char nextHelloCol = 10;
+signed char helloVelocity = 1;
 
 void wdt_c_handler()
 {
   static int secCount = 0;
-  static int secCount2 = 0;
-  static int secCount3 = 0;
+  static int dsecCount = 0;
   static int buzzerCount = 0;
   
   secCount ++;
+  dsecCount ++;
   if (secCount == 250) {		// once/sec 
     secCount = 0;
     fontFgColor = (fontFgColor == COLOR_GREEN) ? COLOR_BLACK : COLOR_GREEN;
+    redrawScreen = 1;
+    }
+  if (dsecCount == 25) {
+    dsecCount = 0;
+    nextHelloCol += helloVelocity;
+    if (nextHelloCol > 30 || nextHelloCol < 10) { //limit
+      helloVelocity = -helloVelocity; //go the other way
+      nextHelloCol += helloVelocity; //undo last move
+    }
     redrawScreen = 1;
     }
 
@@ -51,7 +63,7 @@ void main()
   lcd_init();
   //led_init();
   //buzzer_init();
-  //switch_init();
+  switch_init();
   
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
@@ -60,7 +72,7 @@ void main()
    while (1) {			/* forever */
     if (redrawScreen) {
       redrawScreen = 0;
-      drawString11x16(20,20, "hello", fontFgColor, COLOR_BLUE);
+      drawString11x16(nextHelloCol,nextHelloCol, "hello", fontFgColor, COLOR_BLUE);
     }
     P1OUT &= ~LED_RED; //red off
     or_sr(0x10);		/**< CPU OFF */
