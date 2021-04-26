@@ -23,7 +23,7 @@ switch_init()			/* setup switch */
   P2OUT |= SWITCHES;		/* pull-ups for switches */
   P2DIR &= ~SWITCHES;		/* set switches' bits for input */
   switch_update_interrupt_sense();
-  led_update();
+  //led_update();
 }
 
 void
@@ -37,5 +37,5 @@ switch_interrupt_handler()
   
   switch_state_down[3] = (p2val & SW4) ? 0 : 1; /* 0 when SW4 is up */
   
-  led_update();
+  //led_update();
 }
