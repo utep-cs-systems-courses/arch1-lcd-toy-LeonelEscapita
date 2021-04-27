@@ -42,7 +42,7 @@ void wdt_c_handler()
     }
 }
 
-void shape_state_0()
+void shape_state_default()
 {
   if (redrawScreen) {
         redrawScreen = 0;
@@ -52,12 +52,69 @@ void shape_state_0()
      }
 }
 
+void shape_state_0()
+{
+ if (redrawScreen) {
+        redrawScreen = 0;
+        fillCross(nextHelloCol, nextHelloCol, 20, fontFgColor);
+	fillCross(nextHelloCol, nextHelloCol, 20, COLOR_BLUE);
+        helloCol = nextHelloCol;
+     }
+}
+
+void shape_state_1()
+{
+ if (redrawScreen) {
+        redrawScreen = 0;
+        fillHouse(nextHelloCol, nextHelloCol, 30, fontFgColor);
+	fillHouse(nextHelloCol, nextHelloCol, 30, COLOR_BLUE);
+        helloCol = nextHelloCol;
+     }
+}
+
+void shape_state_2()
+{
+  if (redrawScreen) {
+        redrawScreen = 0;
+        fillLowerTriangle(nextHelloCol, nextHelloCol, 30, fontFgColor);
+	fillLowerTriangle(nextHelloCol, nextHelloCol, 30, COLOR_BLUE);
+        helloCol = nextHelloCol;
+     }
+
+}
+
+void shape_state_3()
+{
+  if (redrawScreen) {
+        redrawScreen = 0;
+        fillUpperTriangle(nextHelloCol, nextHelloCol, 30, fontFgColor);
+	fillUpperTriangle(nextHelloCol, nextHelloCol, 30, COLOR_BLUE);
+        helloCol = nextHelloCol;
+     }
+
+}
+
 void state_selection(char state)
 {
+  /*if(state != 0 || state != 1 || state != 2 || state != 3) {
+    shape_state_default();
+    }*/
+  
   switch(state) {
      default:
-        shape_state_0();
         break;
+      case 0:
+	shape_state_0();
+	break;
+      case 1:
+	shape_state_1();
+	break;
+      case 2:
+	shape_state_2();
+	break;
+      case 3:
+	shape_state_3();
+	break;
   }
   
 }
@@ -86,13 +143,13 @@ void main()
        }
      str[4] = 0;
 
-     //state_selection(state);
-     if (redrawScreen) {
+     state_selection(state);
+     /*if (redrawScreen) {
              redrawScreen = 0;
              drawString11x16(helloCol,helloCol, "hello", COLOR_BLUE, COLOR_BLUE);
              drawString11x16(nextHelloCol,nextHelloCol, "hello", fontFgColor, COLOR_BLUE);
              helloCol = nextHelloCol;
-           }
+	     }*/
       //fillCross(nextHelloCol, nextHelloCol, 30, fontFgColor);
     P1OUT &= ~LED_RED; //red off
     or_sr(0x10);		/**< CPU OFF */
