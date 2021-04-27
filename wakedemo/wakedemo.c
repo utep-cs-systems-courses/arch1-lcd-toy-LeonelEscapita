@@ -40,57 +40,23 @@ void wdt_c_handler()
     }
     redrawScreen = 1;
     }
-
-  /*if (++secCount2 == 50) {
-    state_advance();
-    secCount2 = 0;
-  }
-  
-  if (++secCount3 == 80) {
-    state_advance_sl();
-    secCount3 = 0;
-  }
-  
-  if (++buzzerCount == 100) {
-    state_advance_buzzer();
-    buzzerCount = 0;
-    }*/
 }
 
-int switch_selection(int s)
+void shape_state_0()
 {
-  switch(s){
-    case 0:
-      return 0;
-    case 1:
-      return 1;
-    case 2:
-      return 2;
-    case 3:
-      return 3;
-  }
+  if (redrawScreen) {
+        redrawScreen = 0;
+        drawString11x16(helloCol,helloCol, "hello", COLOR_BLUE, COLOR_BLUE);
+        drawString11x16(nextHelloCol,nextHelloCol, "hello", fontFgColor, COLOR_BLUE);
+        helloCol = nextHelloCol;
+     }
 }
 
-void shape_selection(char* str)
+void state_selection(char state)
 {
-  int shape_case;
-  for (int i = 0; i < 4; i++) {
-    if(str[i] != '-') {
-      int s = str[i];
-      shape_case = switch_selection(s);
-      //shape_case = s;
-    }
-  }
-  switch(shape_case) {
+  switch(state) {
      default:
-        if (redrawScreen) {
-             redrawScreen = 0;
-             drawString11x16(helloCol,helloCol, "hello", COLOR_BLUE, COLOR_BLUE);
-             drawString11x16(nextHelloCol,nextHelloCol, "hello", fontFgColor, COLOR_BLUE);
-             helloCol = nextHelloCol;
-           }
-        break;
-     case 0:
+        shape_state_0();
         break;
   }
   
@@ -102,9 +68,6 @@ void main()
   P1OUT |= LED_RED;
   configureClocks();
   lcd_init();
-  //led_init();
-  buzzer_init();
-  //switch_init();
 
   p2sw_init(15);
   enableWDTInterrupts();      /**< enable periodic interrupt */
@@ -114,11 +77,16 @@ void main()
    while (1) { /* forever */
      u_int switches = p2sw_read(), i;
      char str[5];
-     for (i = 0; i < 4; i++)
+     char state;
+     for (i = 0; i < 4; i++) {
        str[i] = (switches & (1<<i)) ? '-' : '0'+i;
+        if(str[i] != '-') {
+          state = str[i];
+        }
+       }
      str[4] = 0;
 
-     //switch_selection(str);
+     //state_selection(state);
      if (redrawScreen) {
              redrawScreen = 0;
              drawString11x16(helloCol,helloCol, "hello", COLOR_BLUE, COLOR_BLUE);
