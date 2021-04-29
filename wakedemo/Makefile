@@ -16,9 +16,10 @@ stateMachines.o: led.h stateMachines.h
 switches.o: led.h switches.h
 lcddraw.o: lcddraw.c lcddraw.h lcdutils.h
 lcdutils.o: lcdutils.c lcdutils.h
+state_selection.o: state_selection.s
 
 #additional rules for files
-wakedemo.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o font-11x16.o font-5x7.o lcdutils.o lcddraw.o buzzer.o toggle_green.o stateMachines.o
+wakedemo.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o font-11x16.o font-5x7.o lcdutils.o lcddraw.o buzzer.o toggle_green.o stateMachines.o state_selection.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd -lp2sw
 
 load: wakedemo.elf

@@ -44,7 +44,7 @@ void wdt_c_handler()
 
 void shape_state_default()
 {
-  if (redrawScreen) {
+ if (redrawScreen) {
         redrawScreen = 0;
         drawString11x16(helloCol,helloCol, "hello", COLOR_BLUE, COLOR_BLUE);
         drawString11x16(nextHelloCol,nextHelloCol, "hello", fontFgColor, COLOR_BLUE);
@@ -94,15 +94,13 @@ void shape_state_3()
 
 }
 
-void state_selection(char state)
+void state_selection2(char state)
 {
-  /*if(state != 0 || state != 1 || state != 2 || state != 3) {
+  if(state != 0 && state != 1 && state != 2 && state != 3) {
     shape_state_default();
-    }*/
+  }
   
   switch(state) {
-     default:
-        break;
       case 0:
 	shape_state_0();
 	break;
@@ -134,7 +132,7 @@ void main()
    while (1) { /* forever */
      u_int switches = p2sw_read(), i;
      char str[5];
-     char state;
+     char state = 5;
      for (i = 0; i < 4; i++) {
        str[i] = (switches & (1<<i)) ? '-' : '0'+i;
         if(str[i] != '-') {
@@ -143,20 +141,20 @@ void main()
        }
      str[4] = 0;
 
-     state_selection(state);
+     state = state_selection(state);
+     state_selection2(state);
+     
      /*if (redrawScreen) {
              redrawScreen = 0;
-             drawString11x16(helloCol,helloCol, "hello", COLOR_BLUE, COLOR_BLUE);
-             drawString11x16(nextHelloCol,nextHelloCol, "hello", fontFgColor, COLOR_BLUE);
+             drawString11x16(helloCol,helloCol, str, COLOR_BLUE, COLOR_BLUE);
              helloCol = nextHelloCol;
 	     }*/
-      //fillCross(nextHelloCol, nextHelloCol, 30, fontFgColor);
+
     P1OUT &= ~LED_RED; //red off
     or_sr(0x10);		/**< CPU OFF */
     P1OUT |= LED_RED; //red on
    }
-   
-  //or_sr(0x18);
+  
 }
 
     
