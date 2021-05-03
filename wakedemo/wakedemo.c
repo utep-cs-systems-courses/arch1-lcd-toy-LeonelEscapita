@@ -47,8 +47,8 @@ void shape_state_default()
 {
  if (redrawScreen) {
         redrawScreen = 0;
-        drawString11x16(helloCol,helloCol, "hello", COLOR_BLUE, COLOR_BLUE);
-        drawString11x16(nextHelloCol,nextHelloCol, "hello", fontFgColor, COLOR_BLUE);
+        drawString11x16(40,helloCol + 30, "default", COLOR_BLUE, COLOR_BLUE);
+        drawString11x16(40,nextHelloCol + 30, "default", fontFgColor, COLOR_BLUE);
         helloCol = nextHelloCol;
      }
 }
@@ -57,8 +57,8 @@ void shape_state_0()
 {
  if (redrawScreen) {
         redrawScreen = 0;
-        fillCross(nextHelloCol, nextHelloCol, 20, fontFgColor);
-	fillCross(nextHelloCol, nextHelloCol, 20, COLOR_BLUE);
+        fillCross(nextHelloCol + 30, nextHelloCol, 20, fontFgColor);
+	fillCross(nextHelloCol + 30, nextHelloCol, 20, COLOR_BLUE);
         helloCol = nextHelloCol;
      }
 }
@@ -67,8 +67,8 @@ void shape_state_1()
 {
  if (redrawScreen) {
         redrawScreen = 0;
-        fillHouse(nextHelloCol, nextHelloCol, 30, fontFgColor);
-	fillHouse(nextHelloCol, nextHelloCol, 30, COLOR_BLUE);
+        fillHouse(nextHelloCol + 60, nextHelloCol, 30, fontFgColor);
+	fillHouse(nextHelloCol + 60, nextHelloCol, 30, COLOR_BLUE);
         helloCol = nextHelloCol;
      }
 }
@@ -77,8 +77,8 @@ void shape_state_2()
 {
   if (redrawScreen) {
         redrawScreen = 0;
-        fillLowerTriangle(nextHelloCol, nextHelloCol, 30, fontFgColor);
-	fillLowerTriangle(nextHelloCol, nextHelloCol, 30, COLOR_BLUE);
+        fillLowerTriangle(15, nextHelloCol, 30, fontFgColor);
+	fillLowerTriangle(15, nextHelloCol, 30, COLOR_BLUE);
         helloCol = nextHelloCol;
      }
 
@@ -88,8 +88,8 @@ void shape_state_3()
 {
   if (redrawScreen) {
         redrawScreen = 0;
-        fillUpperTriangle(nextHelloCol, nextHelloCol, 30, fontFgColor);
-	fillUpperTriangle(nextHelloCol, nextHelloCol, 30, COLOR_BLUE);
+        fillUpperTriangle(nextHelloCol + 15, 45, 30, fontFgColor);
+	fillUpperTriangle(nextHelloCol + 15, 45, 30, COLOR_BLUE);
         helloCol = nextHelloCol;
      }
 
@@ -137,7 +137,7 @@ void main()
      for (i = 0; i < 4; i++) {
        str[i] = (switches & (1<<i)) ? '-' : '0'+i;
         if(str[i] != '-') {
-          state = str[i] - 48;
+          state = str[i] - 48; //gets the number for state
         }
        }
      str[4] = 0;
