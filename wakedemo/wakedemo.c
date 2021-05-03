@@ -5,8 +5,9 @@
 #include "stateMachines.h"
 #include "buzzer.h"
 #include "p2switches.h"
+#include "wakedemo.h"
 
-#define LED_RED BIT6             // P1.6
+#define LED_RED BIT6;             // P1.6
 
 
 short redrawScreen = 1;
@@ -94,7 +95,7 @@ void shape_state_3()
 
 }
 
-void state_selection2(char state)
+/*void state_selection(char state)
 {
   if(state != 0 && state != 1 && state != 2 && state != 3) {
     shape_state_default();
@@ -115,7 +116,7 @@ void state_selection2(char state)
 	break;
   }
   
-}
+  }*/
   
 void main()
 {
@@ -136,13 +137,12 @@ void main()
      for (i = 0; i < 4; i++) {
        str[i] = (switches & (1<<i)) ? '-' : '0'+i;
         if(str[i] != '-') {
-          state = str[i];
+          state = str[i] - 48;
         }
        }
      str[4] = 0;
 
-     state = state_selection(state);
-     state_selection2(state);
+     state_selection(state);
      
      /*if (redrawScreen) {
              redrawScreen = 0;

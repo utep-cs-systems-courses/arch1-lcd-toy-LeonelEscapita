@@ -1,36 +1,46 @@
         .arch msp430g25453
 	.p2align 1,0
 
-
+	
 	.text
-states:
-	.word default		
-	.word 0			
-	.word 1			
-	.word 2			
-	.word 3			
+jt:
+	.word case0
+	.word case1
+	.word case2
+	.word case3
+	.word default
 
-	.text
+	
 	.global state_selection
 state_selection:
-	mov r12, &t1
-	cmp #1, t1
-	jnz notInState
-	cmp #2, t1
-	jnz notInState
-	cmp #3, t1
-	jnz notInState
-	cmp #4, t1
-	jnz notInState
-	add t1, t1
-	mov states(t1), r12
+	cmp #4, r12		; r12 - 4, if c = 1 (result is 0 or bigger),
+	jc default		; go to default
+	
+	add r12, r12		; duplicating state
+	mov jt(r12), r0		;jumping to address in jt[state]
+
+	
+default:
+	call #shape_state_default
 	pop r0
 
-notInState:
-	add t1, t1
-	mov #0, t1
-	mov states(t1), r12
+case0:
+	call #shape_state_0
 	pop r0
 
+case1:
+	call #shape_state_1
+	pop r0
+
+case2:
+	call #shape_state_2
+	pop r0
+
+case3:
+	call #shape_state_3
+	pop r0
+
+
+	
 	
 	
